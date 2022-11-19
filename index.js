@@ -37,7 +37,7 @@ const conn = mysql.createConnection({
     database: "db_food",
     port: 3308,
 });
-app.get("/getuser", (req, res) => {
+app.get("/api/getuser", (req, res) => {
     conn.query(`SELECT*FROM user`, (err, result) => {
         res.status(200).send(result);
     });
@@ -54,7 +54,8 @@ app.get("/search/:name", (req, res) => {
     conn.query(
         `SELECT*FROM user WHERE full_name LIKE '%${name}%'`,
         (err, result) => {
-            resstatus(200).send(result);
+            console.log('result: ', result);
+            res.status(200).send(result);
         }
     );
 });
