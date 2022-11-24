@@ -43,22 +43,33 @@ const unLike = async (req, res) => {
 };
 const listLikeRes = async (req, res) => {
     try {
+        let { id } = req.params;
         let data = await model.restaurant.findAll({
-            include: ["like_res"],
+            where: { res_id: id },
+            include: ["user_id_users"],
         });
-        successCode(res, data, "Lấy dữ liệu thành công");
+        if (data.length > 0) {
+            successCode(res, data, "Lấy dữ liệu thành công");
+        } else {
+            failCode(res, "", "Không có dữ liệu");
+        }
     } catch (error) {
         errorCode(res, error);
     }
 };
 const listLikeUser = async (req, res) => {
     try {
+        let { id } = req.params;
         let data = await model.user.findAll({
-            include: ["like_res"],
+            where: { user_id: id },
+            include: ["res_id_restaurants"],
             attributes: ["full_name", "email"],
         });
-        let newData = data.filter((item) => item.like_res.length > 0);
-        successCode(res, newData, "Lấy dữ liệu thànhc công");
+        if (data[0].res_id_restaurants.length > 0) {
+            successCode(res, data, "Lấy dữ liệu thành công");
+        } else {
+            failCode(res, "", "Không có dữ liệu");
+        }
     } catch (error) {
         errorCode(res, error);
     }
@@ -105,24 +116,34 @@ const deleteRate = async (req, res) => {
 };
 const listRateRes = async (req, res) => {
     try {
+        let { id } = req.params;
         let data = await model.restaurant.findAll({
-            include: ["rate_res"],
+            where: { res_id: id },
+            include: ["user_id_user_rate_res"],
         });
-        successCode(res, data, "Lấy dữ liệu thành công");
+        if (data[0].user_id_user_rate_res.length > 0) {
+            successCode(res, data, "Lấy dữ liệu thành công");
+        } else {
+            failCode(res, "", "Nhà hàng chưa được đánh giá");
+        }
     } catch (error) {
-        errorCode(res, error);
+        errorCode(res, "Không có dữ liệu");
     }
 };
 const listRateUser = async (req, res) => {
     try {
+        let { id } = req.params;
         let data = await model.user.findAll({
-            include: ["rate_res"],
-            attributes: ["full_name", "email"],
+            where: { user_id: id },
+            include: ["res_id_restaurant_rate_res"],
         });
-        let newData = data.filter((item) => item.rate_res.length > 0);
-        successCode(res, newData, "Lấy dữ liệu thànhc công");
+        if (data[0].res_id_restaurant_rate_res.length > 0) {
+            successCode(res, data, "Lấy dữ liệu thànhc công");
+        } else {
+            failCode(res, "", "người dùng chưa có đánh giá nào");
+        }
     } catch (error) {
-        errorCode(res, error);
+        errorCode(res, "Không có dữ liệu");
     }
 };
 const editRate = async (req, res) => {

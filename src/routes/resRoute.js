@@ -16,12 +16,12 @@ const {
 } = require("../controllers/resControllers");
 resRoute.post("/like", postLike);
 resRoute.delete("/unlike", unLike);
-resRoute.get("/like-res", listLikeRes);
-resRoute.get("/like-user", listLikeUser);
+resRoute.get("/like-res/:id", listLikeRes);
+resRoute.get("/like-user/:id", listLikeUser);
 resRoute.post("/rate", postRate);
 resRoute.delete("/delete-rate", deleteRate);
-resRoute.get("/rate-res", listRateRes);
-resRoute.get("/rate-user", listRateUser);
+resRoute.get("/rate-res/:id", listRateRes);
+resRoute.get("/rate-user/:id", listRateUser);
 resRoute.put("/edit-rate", editRate);
 resRoute.post("/order", newOrder);
 resRoute.put("/edit-order", editOrder);
