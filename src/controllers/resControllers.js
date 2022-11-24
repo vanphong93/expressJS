@@ -215,13 +215,8 @@ const deleteOrder = async (req, res) => {
         errorCode(res, error);
     }
 };
-const checkDemo = (req, res) => {
-    let data = new Date();
-    res.send(data);
-};
 module.exports = {
     postLike,
-    checkDemo,
     unLike,
     listLikeRes,
     listLikeUser,
