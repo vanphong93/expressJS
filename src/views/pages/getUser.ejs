@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body class="container">
+        <header><%- include('../partials/header'); %></header>
+
+        <main>
+            <div class="jumbotron">
+                <h1><%= title %></h1>
+                <% if (dataUsers.length) { %>
+                <ul>
+                    <% dataUsers.forEach(function(item) { %>
+                    <li>
+                        <strong><%= item.user_id %></strong>
+                        Name <%= item.full_name %>, Email <%= item.email %>
+                    </li>
+                    <% }); %>
+                </ul>
+                <% } %>
+            </div>
+        </main>
+
+        <footer><%- include('../partials/footer'); %></footer>
+    </body>
+</html>
